@@ -4,6 +4,20 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Skeleton } from "@chakra-ui/react";
 import { Stack } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
+
+
+function Card() {
+  const { data, loading, error } = useRemoteData();
+  if (error) return <Box children="error" />;
+  return (
+    <Box>
+      <Skeleton isLoaded={!loading}>
+        <Heading>{data.title}</Heading>
+      </Skeleton>
+    </Box>
+  );
+}
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +29,7 @@ const Home: NextPage = () => {
       </Head>
 
  
-          <Stack>
+          <Stack lineHeight={400}>
             <Skeleton height="20px" />
             <Skeleton height="20px" />
             <Skeleton height="20px" />
