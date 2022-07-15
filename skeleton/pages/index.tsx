@@ -8,7 +8,7 @@ import { Box, Heading } from "@chakra-ui/react";
 
 
 function Card() {
-  const { data, loading, error } = useRemoteData();
+  // const { data, loading, error } = useRemoteData();
   if (error) return <Box children="error" />;
   return (
     <Box>
