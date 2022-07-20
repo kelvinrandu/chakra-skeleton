@@ -5,7 +5,14 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Skeleton } from "@chakra-ui/react";
 import { Stack } from "@chakra-ui/react";
-import { Box, Heading, Badge} from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Badge,
+  SkeletonText,
+  SkeletonCircle,
+} from "@chakra-ui/react";
 import useSWR from "swr";
 import { StarIcon } from "@chakra-ui/icons";
 
@@ -109,10 +116,11 @@ const Home: NextPage = () => {
       </Head>
       {/* <Property/> */}
 
-      <Stack lineHeight={1200} maxWidth={400}>
-        <Skeleton height="60px" />
-        <Skeleton height="60px" />
-        <Skeleton height="60px" />
+      <Stack lineHeight={1200} maxWidth={1000}>
+        <Box padding="6" boxShadow="lg" bg="white">
+          <SkeletonCircle fadeDuration={1} size="10" />
+          <SkeletonText mt="4" noOfLines={4} spacing="4" />
+        </Box>
       </Stack>
 
       <footer className={styles.footer}>
