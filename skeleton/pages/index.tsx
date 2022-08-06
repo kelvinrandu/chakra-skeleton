@@ -17,7 +17,7 @@ import {
 import useSWR from "swr";
 import { StarIcon } from "@chakra-ui/icons";
 import { skills } from '../data/data';
-
+import Flippy, { FrontSide, BackSide } from "react-flippy";
 
 // function Card() {
 //   const [loading, setLoading] = useState<boolean>(true);
@@ -47,62 +47,146 @@ function Property(){
   };
 
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image
-        height={200}
-        width={400}
-        src={property.imageUrl}
-        alt={property.imageAlt}
-      />
-      <Box p="6">
-        <Box display="flex" alignItems="baseline">
-          <Badge borderRadius="full" px="2" colorScheme="teal">
-            New
-          </Badge>
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-            ml="2"
-          >
-            {property.beds} beds &bull; {property.baths} baths
-          </Box>
-        </Box>
-
+    <Flippy
+      flipOnHover={true} // default false
+      flipOnClick={true} // default false
+      flipDirection="horizontal" // horizontal or vertical
+      // ref={(r:any) => (this.flippy = r)} // to use toggle method like this.flippy.toggle()
+      // if you pass isFlipped prop component will be controlled component.
+      // and other props, which will go to div
+      // style={{ width: "200px", height: "200px" }} /// these are optional style, it is not necessary
+    >
+      <FrontSide>
         <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          noOfLines={1}
+          maxW="sm"
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          // height={200}
+          // width={200}
         >
-          {property.title}
-        </Box>
+          <Image
+            height={400}
+            width={400}
+            src={property.imageUrl}
+            alt={property.imageAlt}
+          />
+          {/* <Box p="6">
+            <Box display="flex" alignItems="baseline">
+              <Badge borderRadius="full" px="2" colorScheme="teal">
+                New
+              </Badge>
+              <Box
+                color="gray.500"
+                fontWeight="semibold"
+                letterSpacing="wide"
+                fontSize="xs"
+                textTransform="uppercase"
+                ml="2"
+              >
+                {property.beds} beds &bull; {property.baths} baths
+              </Box>
+            </Box>
 
-        <Box>
-          {property.formattedPrice}
-          <Box as="span" color="gray.600" fontSize="sm">
-            / wk
+            <Box
+              mt="1"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+              noOfLines={1}
+            >
+              {property.title}
+            </Box>
+
+            <Box>
+              {property.formattedPrice}
+              <Box as="span" color="gray.600" fontSize="sm">
+                / wk
+              </Box>
+            </Box>
+
+            <Box display="flex" mt="2" alignItems="center">
+              {Array(5)
+                .fill("")
+                .map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    color={i < property.rating ? "teal.500" : "gray.300"}
+                  />
+                ))}
+              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                {property.reviewCount} reviews
+              </Box>
+            </Box>
+          </Box> */}
+        </Box>
+      </FrontSide>
+      <BackSide>
+        <Box
+          maxW="sm"
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          // height={200}
+          // width={200}
+        >
+          <Image
+            height={200}
+            width={400}
+            src={property.imageUrl}
+            alt={property.imageAlt}
+          />
+          <Box p="6">
+            <Box display="flex" alignItems="baseline">
+              <Badge borderRadius="full" px="2" colorScheme="teal">
+                New
+              </Badge>
+              <Box
+                color="gray.500"
+                fontWeight="semibold"
+                letterSpacing="wide"
+                fontSize="xs"
+                textTransform="uppercase"
+                ml="2"
+              >
+                {property.beds} beds &bull; {property.baths} baths
+              </Box>
+            </Box>
+
+            <Box
+              mt="1"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+              noOfLines={1}
+            >
+              {property.title}
+            </Box>
+
+            <Box>
+              {property.formattedPrice}
+              <Box as="span" color="gray.600" fontSize="sm">
+                / wk
+              </Box>
+            </Box>
+
+            <Box display="flex" mt="2" alignItems="center">
+              {Array(5)
+                .fill("")
+                .map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    color={i < property.rating ? "teal.500" : "gray.300"}
+                  />
+                ))}
+              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                {property.reviewCount} reviews
+              </Box>
+            </Box>
           </Box>
         </Box>
-
-        <Box display="flex" mt="2" alignItems="center">
-          {Array(5)
-            .fill("")
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < property.rating ? "teal.500" : "gray.300"}
-              />
-            ))}
-          <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {property.reviewCount} reviews
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+      </BackSide>
+    </Flippy>
   );
 }
 const Home: NextPage = () => {
@@ -114,28 +198,19 @@ const Home: NextPage = () => {
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        className="flip-container"
+
+      <Flex
+        flexDirection={["column", "column", "row"]}
+        // flexFlow={["column-reverse", "column-reverse"]}
+        justifyContent={["center", "space-between"]}
+        alignItems="center"
+        w="100%"
+        gap="2"
       >
-        <div className="flipper">
-          <div className="front" >
-            {/* front */}
-            <Flex
-              flexDirection={["column", "column", "row"]}
-              // flexFlow={["column-reverse", "column-reverse"]}
-              justifyContent={["center", "space-between"]}
-              alignItems="center"
-              w="100%"
-              gap="2"
-            >
-              {skills.map((skill) => (
-                <Property />
-              ))}
-            </Flex>
-          </div>
-          <div className="back">{/* back */}</div>
-        </div>
-      </div>
+        {skills.map((skill) => (
+          <Property />
+        ))}
+      </Flex>
 
       {/* <Stack lineHeight={1200} maxWidth={1000}>
         <Box padding="6" boxShadow="lg" bg="white">
