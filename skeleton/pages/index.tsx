@@ -14,9 +14,9 @@ import {
   SkeletonCircle,
   Flex,
 } from "@chakra-ui/react";
-import useSWR from "swr";
 import { StarIcon } from "@chakra-ui/icons";
 import { skills } from '../data/data';
+//@ts-ignore
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 
 // function Card() {
@@ -207,8 +207,8 @@ const Home: NextPage = () => {
         w="100%"
         gap="2"
       >
-        {skills.map((skill) => (
-          <Property />
+        {skills.map((skill,index) => (
+          <Property key={index} />
         ))}
       </Flex>
 
